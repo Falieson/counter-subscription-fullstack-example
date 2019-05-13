@@ -1,45 +1,37 @@
 import express from 'express';
 import { createServer } from 'http';
-import { PubSub } from 'apollo-server';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 
 const app = express();
 
-const pubsub = new PubSub();
-const MESSAGE_CREATED = 'MESSAGE_CREATED';
+import Schema from './graphql/Schema'
+import Resolvers from './graphql/Resolvers'
 
-const typeDefs = gql`
-  type Query {
-    messages: [Message!]!
-  }
+// const pubsub = new PubSub();
 
-  type Subscription {
-    messageCreated: Message
-  }
-
-  type Message {
-    id: String
-    content: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    messages: () => [
-      { id: 0, content: 'Hello!' },
-      { id: 1, content: 'Bye!' },
-    ],
-  },
-  Subscription: {
-    messageCreated: {
-      subscribe: () => pubsub.asyncIterator(MESSAGE_CREATED),
-    },
-  },
-};
+const defaultQuery = `
+query getCount {
+  count
+}
+mutation increaseCount {
+  countIncr
+}
+subscription onCountIncrease {
+  count
+}
+`
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  typeDefs: Schema,
+  resolvers: Resolvers,
+  playground: {
+    responses: ['{}'],
+    tabs: [
+      {
+        query: defaultQuery,
+      },
+    ],
+  }
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
@@ -50,13 +42,3 @@ server.installSubscriptionHandlers(httpServer);
 httpServer.listen({ port: 8000 }, () => {
   console.log('Apollo Server on http://localhost:8000/graphql');
 });
-
-let id = 2;
-
-setInterval(() => {
-  pubsub.publish(MESSAGE_CREATED, {
-    messageCreated: { id, content: new Date().toString() },
-  });
-
-  id++;
-}, 1000);
