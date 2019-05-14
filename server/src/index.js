@@ -7,19 +7,18 @@ const app = express();
 import Schema from './graphql/Schema'
 import Resolvers from './graphql/Resolvers'
 
-// const pubsub = new PubSub();
-
+const defaultSubcription = `subscription onCountIncrease {
+  count
+}
+`
 const defaultQuery = `
 query getCount {
   count
 }
+
 mutation increaseCount {
   countIncr
-}
-subscription onCountIncrease {
-  count
-}
-`
+}`
 
 const server = new ApolloServer({
   typeDefs: Schema,
@@ -28,8 +27,11 @@ const server = new ApolloServer({
     responses: ['{}'],
     tabs: [
       {
-        query: defaultQuery,
+        query: defaultSubcription,
       },
+      {
+        query: defaultQuery,
+      }
     ],
   }
 });
