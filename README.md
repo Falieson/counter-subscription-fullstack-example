@@ -1,28 +1,22 @@
-# fullstack-apollo-subscription-example
-
-[![Slack](https://slack-the-road-to-learn-react.wieruch.com/badge.svg)](https://slack-the-road-to-learn-react.wieruch.com/)
+# counter-subscription-fullstack-example
 
 A minimal Apollo Server 2 with Apollo Client 2 application with subscriptions.
 
+- FE Demonstrates Query, Mutation, Subscription `react-apollo` components.
+- BE Demonstrates Query, Mutation, Subscription `react-apollo` resolvers.
+
 ## Installation
 
-* `git clone git@github.com:the-road-to-graphql/fullstack-apollo-subscription-example.git`
-* `cd fullstack-apollo-subscription-example`
+```bash
+$ git clone git@github.com:falieson/fullstack-apollo-subscription-example.git
+$ cd fullstack-apollo-subscription-example
+```
 
-### Server
+## GETTING STARTD
 
-* `cd server`
-* `npm install`
-* `npm start`
-
-### Client
-
-* `cd client`
-* `npm install`
-* `npm start`
-* visit `http://localhost:3000`
-
-## Want to learn more about React + GraphQL + Apollo?
-
-* Don't miss [upcoming Tutorials and Courses](https://www.getrevue.co/profile/rwieruch)
-* Check out current [React Courses](https://roadtoreact.com)
+```bash
+$ npm i -g nps nps-utils
+$ npm i -D
+$ nps setup
+$ nps
+```
