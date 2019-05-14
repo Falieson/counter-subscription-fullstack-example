@@ -1,0 +1,150 @@
+{
+  // HIDE THINGS THAT ARE RARELY USED
+  // Turn on excludes here
+  "files.exclude": {
+    // a pretty important folder
+    "scripts/": true,
+    "src/server/": true,
+
+    // DOT FILES
+    ".babelrc": true,
+    ".dockerignore": true,
+    ".gitignore": true,
+    "**/.gitkeep": true,
+    ".npmignore": true,
+    ".npmrc": true,
+    ".nvmrc": true,
+    "jest.config.js": true,
+    "nodemon.json": true,
+    "package-scripts.js": true,
+    "package-lock.json": true,
+    "tsconfig.jest.json": true,
+    "tsconfig.json": true,
+    "tslint.json": true,
+
+    // GENERATED FILES
+    "**/*.scss.d.ts": true,
+    "**/*.css.d.ts": true,
+    "**/.cache-loader/": true,
+
+    // FOLDERS
+    "**/.netlify": true,
+    "**/.vscode": true,
+    "**/bin": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/db": true,
+    "**/jest": true,
+    "**/lib": true,
+    "**/logs": true,
+    "**/webpack": true,
+
+    // Expose @material-io and @tgrx
+    // hide all folders that doesn't start with '@t' for '@tgrx'
+    // your org probably pushes packages to @org and
+    // you want to see those packages in your node_modules
+    "**/node_modules": true,
+    "**/node_modules/.*": true,
+    "**/node_modules/[abcdefghijklmnopqrstuvwxyz]*": true,
+    "**/node_modules/@[abcdefghijklnopqrsuvwxyz]*": true, // removed m and t
+  },
+  // Turn off excludes here
+  "search.exclude": {
+    // a pretty important folder
+    "scripts/": false,
+    "src/server/": false,
+
+    // DOT FILES
+    ".babelrc": false,
+    ".dockerignore": false,
+    ".gitignore": false,
+    "**/.gitkeep": false,
+    ".npmignore": false,
+    ".npmrc": false,
+    ".nvmrc": false,
+    "jest.config.js": false,
+    "nodemon.json": false,
+    "package-scripts.js": false,
+    "package-lock.json": false,
+    "tsconfig.jest.json": false,
+    "tsconfig.json": false,
+    "tslint.json": false,
+
+    // FOLDERS
+    "**/.netlify": false,
+    "**/bin": false,
+    "**/build": false,
+    "**/dist": false,
+    "**/db": false,
+    "**/jest": false,
+    "**/lib": false,
+    "**/logs": false,
+    "**/webpack": false,
+
+    // If you hide the folder and set this to true
+    // you have to open the workspace settings from
+    // ctrl+shift+p => workspace settings
+    "**/.vscode": false,
+  },
+
+  // ToDos:
+  // https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+    {
+        "text": "NOTE:",
+        "color": "#ff0000",
+        "backgroundColor": "yellow",
+        "overviewRulerColor": "grey"
+    },
+    {
+        "text": "REF:",
+        "color": "#FFF",
+        "backgroundColor": "blue",
+        "overviewRulerColor": "grey"
+    },
+    {
+        "text": "DOC:",
+        "color": "#FFF",
+        "backgroundColor": "blue",
+        "overviewRulerColor": "grey"
+    },
+    {
+        "text": "ISSUE:",
+        "color": "#FFFFFF",
+        "backgroundColor": "red",
+        "overviewRulerColor": "grey"
+    },
+  ],
+  "todohighlight.include": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.json5",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.html",
+      "**/*.css",
+      "**/*.scss"
+  ],
+  "todohighlight.exclude": [
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/.vscode/**",
+      "**/.github/**",
+      "**/_output/**",
+      "**/*.min.*",
+      "**/*.map",
+      "**/.next/**"
+  ],
+  "todohighlight.maxFilesForSearch": 5120,
+  "todohighlight.toggleURI": false,
+
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#005956",
+    "titleBar.activeBackground": "#30CAD1", 
+    "titleBar.activeForeground": "#F7F6FF"
+  },
+}

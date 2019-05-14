@@ -1,0 +1,15 @@
+## Docker image for windows development
+FROM node:11.9.0
+
+WORKDIR /usr/src/
+COPY package.json ./
+
+RUN export SHELL=/bin/bash
+RUN npm install -g nps nps-utils
+RUN npm install
+RUN npm rebuild node-sass
+RUN npm install -g nodemon --unsafe-perm=true --allow-root
+
+EXPOSE 3000
+
+CMD [ "/bin/bash" ]

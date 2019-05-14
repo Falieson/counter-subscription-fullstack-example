@@ -1,0 +1,24 @@
+
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+const GET_VISIBILITY_FILTER = gql`
+  {
+    simpleButton @client
+  }
+`
+function GqlTest() {
+  return <div>
+    <Query query={GET_VISIBILITY_FILTER}>
+      {({ data, client }) => (
+        <div
+          onClick={() => {
+            console.log("CLICKEd")
+            client.writeData({ data: { simpleButton: !!!data.simpleButton } })
+          }}
+        >
+          simpleButton: {data.simpleButton ? 'activated' : 'inactive'}
+        </div>
+      )}
+    </Query>
+  </div>
+}

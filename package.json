@@ -1,0 +1,17 @@
+{
+  "name": "tgr-platform-counter-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nps",
+    "test": "nps test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nps": "^5.9.5",
+    "nps-utils": "^1.7.0"
+  }
+}

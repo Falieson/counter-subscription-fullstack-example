@@ -1,0 +1,29 @@
+## RUN TESTS
+FROM node:11.9.0-alpine as build
+RUN npm install -g nps nps-utils
+WORKDIR /usr/src/
+
+COPY . ./
+
+## Build code for staging
+COPY .env.staging ./.env
+
+
+## Install build dependencies
+RUN npm i -D
+
+## Build application
+RUN nps build.production.multi
+
+## Only prod resources
+FROM node:11.9.0-alpine as app
+WORKDIR /usr/src/
+
+COPY --from=build /usr/src/build ./build
+COPY package.json ./
+RUN npm install --production
+
+EXPOSE 80
+# EXPOSE 443  SSL
+# EXPOSE 3000 DEVELOPMENT
+CMD [ "npm", "run", "start:prod" ]

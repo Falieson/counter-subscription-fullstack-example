@@ -1,72 +1,49 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Mutation, Subscription } from 'react-apollo'
 
-const GET_MESSAGES = gql`
-  query {
-    messages {
-      id
-      content
-    }
-  }
-`;
-
-const MESSAGE_CREATED = gql`
-  subscription {
-    messageCreated {
-      id
-      content
-    }
-  }
-`;
-
-const App = () => (
-  <Query query={GET_MESSAGES}>
-    {({ data, loading, subscribeToMore }) => {
-      if (!data) {
-        return null;
-      }
-
-      if (loading) {
-        return <span>Loading ...</span>;
-      }
-
-      return (
-        <Messages
-          messages={data.messages}
-          subscribeToMore={subscribeToMore}
-        />
-      );
-    }}
-  </Query>
-);
-
-class Messages extends React.Component {
-  componentDidMount() {
-    this.props.subscribeToMore({
-      document: MESSAGE_CREATED,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-
-        return {
-          messages: [
-            ...prev.messages,
-            subscriptionData.data.messageCreated,
-          ],
-        };
-      },
-    });
-  }
-
-  render() {
-    return (
-      <ul>
-        {this.props.messages.map(message => (
-          <li key={message.id}>{message.content}</li>
-        ))}
-      </ul>
-    );
-  }
+const COUNTER_SUBSCRIPTION = gql`
+subscription onCountIncr {
+  count
 }
+`
 
-export default App;
+const Counter = () => (
+  <Subscription
+    subscription={COUNTER_SUBSCRIPTION}
+    // variables={{ repoFullName }}
+  >
+    {({ data, loading }) => {
+      console.log({loading, data})
+      return loading
+        ? <h1>Loading ...</h1>
+        : data.count
+          ? <h2>Counter: {data.count}</h2>
+          : <h1>Counter Subscription Not Available</h1>
+    }}
+  </Subscription>
+)
+
+const COUNTER_MUTATION = gql`
+mutation onCountIncr {
+  countIncr
+}
+`
+const CounterButton = () => (
+  <Mutation mutation={COUNTER_MUTATION}>
+    {(countIncr, { data }) => (
+      <button onClick={e => countIncr()}>
+        {data && data.countIncr
+        ? `Increase Counter from ${data.countIncr}`
+        : 'Increase Counter'}
+      </button>
+    )}
+  </Mutation>
+)
+
+export default function HomePage(props) {
+  return  <div style={{padding: '20px'}}>
+    <Counter />
+    <CounterButton />
+  </div>
+}
